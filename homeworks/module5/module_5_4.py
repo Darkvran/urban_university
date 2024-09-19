@@ -1,10 +1,15 @@
 class House:
     houses_history = []
 
-    def __init__(self, name, number_of_floors):
-        self.name = name
-        self.number_of_floors = number_of_floors
-        House.houses_history.append(self.name)
+    def __new__(cls, *args, **kwargs):
+        cls.houses_history.append(kwargs.get('name'))
+        return super().__new__(cls)
+
+    def __init__(self, *args, **kwargs):
+        self.args = args
+        for key, values in kwargs.items():
+            setattr(self, key, values)
+
     def __len__(self):
         return self.number_of_floors
 
@@ -13,6 +18,7 @@ class House:
 
     def __del__(self):
         print(f'{self.name} снесён, но он останется в истории')
+
     def __eq__(self, other):
         if isinstance(other, int) or isinstance(other, House):
             return self.number_of_floors == other.number_of_floors
@@ -56,11 +62,12 @@ class House:
         else:
             print('Такого этажа не существует')
 
-h1 = House('ЖК Эльбрус', 10)
+
+h1 = House(name='ЖК Эльбрус', number_of_floors=10)
 print(House.houses_history)
-h2 = House('ЖК Акация', 20)
+h2 = House(name='ЖК Акация', number_of_floors=20)
 print(House.houses_history)
-h3 = House('ЖК Матрёшки', 20)
+h3 = House(name='ЖК Матрёшки', number_of_floors=20)
 print(House.houses_history)
 
 del h2
@@ -68,4 +75,3 @@ del h3
 
 print(House.houses_history)
 
-#Объясните пожалуйста, чем плох такой метод? (без args) Не совсем понимаю, как реализовать иначе и для чего.

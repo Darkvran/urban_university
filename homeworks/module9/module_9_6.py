@@ -10,4 +10,4 @@ def all_variants(text):
 
 
 for el in all_variants('abc'):
-    print(*el)
+    print(''.join(el))

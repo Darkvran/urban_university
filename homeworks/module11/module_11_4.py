@@ -1,14 +1,18 @@
 import inspect
 
-class Cat():
-    """
-    /\_____/\
-   /  o   o  \
-  ( ==  ^  == )
-   )         (
-  (           )
- ( (  )   (  ) )
-(__(__)___(__)__)
+def get_attrs(obj):
+    attributes = [attr for attr in dir(obj) if not callable(getattr(obj, attr)) and not attr.startswith("__")]
+    return attributes
+
+class Cat:
+    r"""
+        /\_____/\
+       /  o   o  \
+      ( ==  ^  == )
+       )         (
+      (           )
+     ( (  )   (  ) )
+    (__(__)___(__)__)
     """
     def __init__(self, name, gender, age, lives):
         self.name = name
@@ -23,7 +27,7 @@ class Cat():
         return "-1 ваза, +1 недовольный человечишка :3"
 
 def introspection_info(obj):
-    dict = {"type": type(obj), "attrubutes": dir(obj), "methods": [name for name, member in inspect.getmembers(obj, predicate=inspect.ismethod)], "module": obj.__class__.__module__, "isCat": isinstance(obj, Cat)}
+    dict = {"type": type(obj), "attrubutes": get_attrs(obj), "methods": [name for name, member in inspect.getmembers(obj, predicate=inspect.ismethod)], "module": obj.__class__.__module__, "isCat": isinstance(obj, Cat)}
     return dict
 def main():
     cat = Cat("Кусимир", "М", 3, 9)

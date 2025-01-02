@@ -14,11 +14,11 @@ dp = Dispatcher()
 
 @dp.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
-    print("Привет! Я бот помогающий твоему здоровью.")
+    await  message.answer("Привет! Я бот помогающий твоему здоровью.")
 
 @dp.message()
 async def command_start_handler(message: Message) -> None:
-    print("Введите команду /start, чтобы начать общение.")
+    await  message.answer("Введите команду /start, чтобы начать общение.")
 
 
 
